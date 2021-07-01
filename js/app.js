@@ -57,7 +57,7 @@ function successHandle(stateGroup) {
         var bottomAxis = d3.axisBottom(xLinearScale);
         var leftAxis = d3.axisLeft(yLinearScale);
         
-        /// Append X Axis
+        /// Append X-axis to smokes(%) group
         var xAxis = chartGrouped.append("g")
             .classed("x-axis", true)
             .attr("transform", `translate(0, ${height})`)
@@ -72,5 +72,20 @@ function successHandle(stateGroup) {
             .classed("active", true)
             .classed("inactive", false)
             .text("Smokes (%)");
-
+        
+        /// Append Y-axis to poverty group
+        var yAxis = chartGrouped.append("g")
+            .classed("y-axis", true)
+            .call(leftAxis);
+        
+        var yLabel = chartGrouped.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 -  margin.left + 20)
+            .attr("x", 0 - height / 2)
+            .attr("value", "poverty")
+            .attr("class", "axis-text")
+            .classed("active", true)
+            .classed("inactive", false)
+            .text("In Poverty(%)")
+        
         
