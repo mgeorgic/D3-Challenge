@@ -1,17 +1,60 @@
 
 // @TODO: YOUR CODE HERE!
-// Resize and where to put your code for the scatter plot
-
-var svgArea = d3.select("#scatter").select("svg");
 
 // clear svg is not empty
 if (!svgArea.empty()) {
 svgArea.remove();
 }
 
-svgWidth = document.getElementById('scatter').clientWidth;
-svgHeight = svgWidth / 1.45;
+// Set svg wrapper dimensions 
+var svgWidth = 900;
+var svgHeight = 600;
+var margin = { top: 100, right: 60, bottom: 100, left:60};
 
-var border= 1.5;
-var bordercolor='dark blue';
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
+
+// Create SVG wrapper to scatter, append SVG group, resize left and top margins.
+var svg = d3
+    .select(".scatter")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+/// Append an SVG Group, shift by left and top margins
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+/// Choose what to name x and y axis
+var chosenXaxis = "poverty";
+var chosenYaxis = "smokes";
+
+/// Grab CSV data
+var file = "../data/data.csv"
+console.log(d3.csv(file))
+d3.csv(file).then(successHandle, errorHandle);
+
+// Error handler, if missing data
+function errorHandle(error){
+    throw error;
+}
+
+// If there is state data then filter state data for poverty and smokes
+function successHandle(stateGroup) {
+    /// Parse Data
+    stateGroup.forEach(function(data) {
+        data.state = data.state;
+        data.abbr = data.abbr;
+        data.poverty = +data.poverty;
+        data.smokes = +data.smokes;
+    });
+    
+        /// Scale axis, as big as needed based on data
+        var xLinearScale = xScale(stateData, chosenXaxis);
+        var yLinearScale = yScale(stateData, chosenYaxis);
+    
+        /// Initial axis 
+        var bottomAxis = d3.axisBottom(xLinearScale);
+        var leftAxis = d3.axisLeft(yLinearScale);
+    
 
