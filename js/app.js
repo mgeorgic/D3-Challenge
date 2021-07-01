@@ -56,5 +56,21 @@ function successHandle(stateGroup) {
         /// Initial axis 
         var bottomAxis = d3.axisBottom(xLinearScale);
         var leftAxis = d3.axisLeft(yLinearScale);
-    
+        
+        /// Append X Axis
+        var xAxis = chartGrouped.append("g")
+            .classed("x-axis", true)
+            .attr("transform", `translate(0, ${height})`)
+            .call(bottomAxis);
+        
+        var xLabel = chartGrouped.append("text")
+            .attr("transform", `translate(${width / 2}, ${height + 20})`)
+            .attr("x", 0 )
+            .attr("y", 20)
+            .attr("value", "smokes")
+            .attr("class", "axis-text")
+            .classed("active", true)
+            .classed("inactive", false)
+            .text("Smokes (%)");
 
+        
