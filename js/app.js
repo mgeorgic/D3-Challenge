@@ -88,4 +88,46 @@ function successHandle(stateGroup) {
             .classed("inactive", false)
             .text("In Poverty(%)")
         
+            var circleRadius = 15;
+    
+            /// Append circles for chart
+            var circlesGroup = chartGrouped.selectAll("circles")
+                .data(stateData)
+                .enter()
+                .append("circle")
+                .attr("cx", d => xLinearScale(d[chosenXaxis]))
+                .attr("cy", d => yLinearScale(d[chosenYaxis]))
+                .attr("r", circleRadius)
+                .attr("fill", "purple")
+                .style("stroke", "lavender")
+                .attr("opacity", ".7")
+                .text(function(d) {
+                    return d.abbr;
+                })
         
+            /// Append State Abbreviations to Circles
+            var abbrGroup = chartGrouped.selectAll("texts")
+            .data(stateData)
+            .enter()
+            .append("text")
+            .attr("x", d => xLinearScale(d[chosenXaxis]))
+            .attr("y", d => yLinearScale(d[chosenYaxis]))
+            .attr("class","stateText")
+            .text(function(d) {
+                return d.abbr;
+            })
+    
+    // Axis labels
+    var xLabel = "Live in Poverty (%)"
+    var yLabel = "Smokes(%)"
+    
+    //  Create tooltips, assign it a class
+    var toolTip = d3.tip()
+            .attr("class", "d3-tip")
+            .offset([90, 0])
+            .html(function(d) {
+                 return (`<b>${d["state"]}</b><br>${xLabel} <b>${d[chosenXaxis]}</b><br>${yLabel} <b>${d[chosenYaxis]}</b>`)
+            });
+            
+         
+            
