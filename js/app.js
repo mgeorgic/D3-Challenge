@@ -130,4 +130,14 @@ function successHandle(stateGroup) {
             });
             
          
-            
+               // Mouse over and out to show data when mouse is over it
+               abbrGroup.call(toolTip);
+               abbrGroup.on("mouseover", function(data) {
+               toolTip.show(data, this);
+               })
+                   .on("mouseout", function(data, index) {
+                       toolTip.hide(data);
+                   });
+               return abbrGroup;
+       
+      
