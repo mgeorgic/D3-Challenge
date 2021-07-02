@@ -3,10 +3,10 @@ var svgWidth = 960;
 var svgHeight = 500;
 
 var margin = {
-  top: 30,
-  right: 20,
-  bottom: 70,
-  left:  80
+  top: 10,
+  right: 40,
+  bottom: 100,
+  left: 100
 };
 
 var width = svgWidth - margin.left - margin.right + 10;
@@ -58,7 +58,7 @@ function renderXAxis(newXScale, xAxis) {
   var bottomAxis = d3.axisBottom(newXScale);
 
   xAxis.transition()
-    .duration(1000)
+    .duration(100)
     .call(bottomAxis);
 
   return xAxis;
@@ -88,7 +88,7 @@ function renderXCircles(circlesGroup, newXScale, chosenXAxis) {
 function renderYCircles(circlesGroup, newYScale, chosenYAxis) {
 
   circlesGroup.transition()
-    .duration(1000)
+    .duration(100)
     .attr("cy", d => newYScale(d[chosenYAxis]));
 
   return circlesGroup;
@@ -144,7 +144,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
-    .offset([40, 60])
+    .offset([40, 50])
     .html(function(d) {
       return (`<strong>${d.state}</strong>
               <br>${xlabel} ${d[chosenXAxis]}
@@ -242,7 +242,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     // Create group for the three x-axis choices
     // Set the values to grab for each event 
     var xLabelsGroup = chartGroup.append("g")
-      .attr("transform", `translate(${width / 2}, ${height + 30})`);
+      .attr("transform", `translate(${width / 2}, ${height + 10})`);
 
     var smokesLabel = xLabelsGroup.append("text")
       .attr("x", 0)
