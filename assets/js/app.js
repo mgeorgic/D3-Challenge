@@ -1,9 +1,9 @@
 // @TODO: YOUR CODE HERE!
-var svgWidth = 960;
-var svgHeight = 500;
+var svgWidth = 800;
+var svgHeight = 700;
 
 var margin = {
-  top: 10,
+  top: 20,
   right: 40,
   bottom: 100,
   left: 100
@@ -144,7 +144,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
-    .offset([40, 50])
+    .offset([20, 40])
     .html(function(d) {
       return (`<strong>${d.state}</strong>
               <br>${xlabel} ${d[chosenXAxis]}
@@ -231,7 +231,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
       .enter()
       .append("text")
       .text(d => d.abbr)
-      .attr("x", d => xLinearScale(d[chosenXAxis]))
+      .attr("x", d => xLinearScale(d[chosenXAxis])+4)
       .attr("y", d => yLinearScale(d[chosenYAxis])+4)
       .attr("font-family", "garamond")
       .attr("text-anchor", "middle")
@@ -242,7 +242,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     // Create group for the three x-axis choices
     // Set the values to grab for each event 
     var xLabelsGroup = chartGroup.append("g")
-      .attr("transform", `translate(${width / 2}, ${height + 10})`);
+      .attr("transform", `translate(${width / 2}, ${height + 30})`);
 
     var smokesLabel = xLabelsGroup.append("text")
       .attr("x", 0)
@@ -293,7 +293,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     // updateToolTip function above csv import
     var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
-    // x axis labels event listener
+    // x axis labels event listener, use this to say the element you are hovering on
     xLabelsGroup.selectAll("text")
       .on("click", function() {
         // get value of selection
